@@ -1,4 +1,4 @@
-from ib_insync import *
+from ib_async import *
 import pandas as pd
 
 # Connect to IBKR

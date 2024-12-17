@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from flask_cors import CORS
+#from flask_cors import CORS
 
 import asyncio
 from vix_index_futures import get_vix_and_vix_futures_prices
@@ -9,7 +9,7 @@ nest_asyncio.apply()
 
 app = Flask(__name__)
 # THIS WAS ADDED TO ALLOW CORS FOR TEST PURPOSES!!! ON LOCALHOST!!! 
-CORS(app, origins='http://localhost:3000')
+#CORS(app, origins='http://localhost:3000')
 
 
 @app.route('/vix-data')
@@ -21,4 +21,4 @@ def vix_data():
     return jsonify(vix_data_list)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=3333)

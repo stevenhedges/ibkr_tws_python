@@ -1,4 +1,4 @@
-from ib_insync import *
+from ib_async import *
 import pandas as pd
 import matplotlib.pyplot as plt
 import datetime
@@ -56,7 +56,7 @@ async def get_vix_and_vix_futures_prices():
     # Qualify the VIX index contract to ensure its validity
 
     qualified_vix_contract = ib.qualifyContracts(vix_index)
-    # print(qualified_vix_contract)
+    print(qualified_vix_contract)
 
     # Request historical data for the VIX index from Interactive Brokers
     data = ib.reqHistoricalData(
@@ -68,7 +68,7 @@ async def get_vix_and_vix_futures_prices():
         useRTH=True,                # Use regular trading hours data only
         formatDate=1                # Format date as UNIX timestamp
     )
-    # print(data)
+    print(f"Historical: {data=}")
 
     # Convert the data to a Pandas DataFrame
     data_df = pd.DataFrame(data)
@@ -100,7 +100,7 @@ async def get_vix_and_vix_futures_prices():
     else:
         expiry_dates = [(starting_month + relativedelta.relativedelta(months=i)).strftime('%Y%m') for i in range(-1, 7)]
 
-    print('VIX Futures contracts expirity dates: ',expiry_dates)
+    print('VIX Futures contracts expiry dates: ',expiry_dates)
 
     # Loop over the expiry dates and create a VIX futures contract for each expiry date
     for expiry_date in expiry_dates:
@@ -177,3 +177,10 @@ for i in range(len(x)):
 
 plt.show()
 '''
+
+
+
+if __name__ == '__main__':
+    import asyncio
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(get_vix_and_vix_futures_prices())
